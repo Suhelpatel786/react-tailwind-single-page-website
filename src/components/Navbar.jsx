@@ -4,21 +4,22 @@ import { logo, close, menu } from "../assets";
 import { navLinks } from "../constants/index";
 
 const Navbar = () => {
+  const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
-
   return (
-    <div className="w-full flex py-6 justify-between items-center navbar">
+    <div className="w-full flex py-6 justify-between items-center">
       <img className="w-[124px] h-[32px]" src={logo} alt="bank-logo" />
 
       <ul className="list-none sm:flex hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-poppins font-normal text-white ${
-              index === navLinks.length - 1 ? "mr-0" : "mr-10"
-            }  cursor-pointer text-[16px]`}
+            className={`font-poppins font-normal cursor-pointer text-[16px] ${
+              active === nav.title ? "text-white" : "text-dimWhite"
+            } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
+            onClick={() => setActive(nav.title)}
           >
-            <a href={`${nav.id}`}>{nav.title}</a>
+            <a href={`#${nav.id}`}>{nav.title}</a>
           </li>
         ))}
       </ul>
@@ -45,8 +46,9 @@ const Navbar = () => {
                 className={`font-poppins font-normal text-white ${
                   index === navLinks.length - 1 ? "mb-0" : "mb-4"
                 }  cursor-pointer text-[16px]`}
+                onClick={()=>setToggle((prev)=>!prev)}
               >
-                <a href={`${nav.id}`}>{nav.title}</a>
+                <a href={`#${nav.id}`}>{nav.title}</a>
               </li>
             ))}
           </ul>
